@@ -1,0 +1,10 @@
+========================
+=======PINK=THEME=======
+========================
+
+//Colors
+Main Pink : #EBA4FF
+Dark Pink : #c815b5
+Light Pink : #ffd2f7
+Black-like text : #2a2222
+Grayed text : #71342626
