@@ -168,4 +168,5 @@ caret_blink_speed = 0.55
 [connection signal="mouse_entered" from="." to="." method="_on_PlanLine_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_PlanLine_mouse_exited"]
 [connection signal="pressed" from="buttons/move_up" to="." method="_on_move_up_pressed"]
+[connection signal="pressed" from="buttons/move_down" to="." method="_on_move_down_pressed"]
 [connection signal="about_to_show" from="buttons/menu" to="." method="_on_menu_about_to_show"]

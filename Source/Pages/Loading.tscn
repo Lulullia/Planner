@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/themes/Pink.tres" type="Theme" id=1]
+[ext_resource path="res://Pages/Loading.gd" type="Script" id=2]
+[ext_resource path="res://Assets/fonts/Crushed-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=3]
+size = 45
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[node name="Loading" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.815686, 0.815686, 0.815686, 1 )
+
+[node name="margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 14
+custom_constants/margin_left = 14
+custom_constants/margin_bottom = 40
+
+[node name="main" type="VBoxContainer" parent="margin"]
+margin_left = 14.0
+margin_right = 1426.0
+margin_bottom = 776.0
+
+[node name="sep1" type="HSeparator" parent="margin/main"]
+margin_right = 1412.0
+margin_bottom = 340.0
+custom_constants/separation = 340
+
+[node name="loading" type="Label" parent="margin/main"]
+margin_top = 344.0
+margin_right = 1412.0
+margin_bottom = 395.0
+custom_fonts/font = SubResource( 3 )
+text = "PLAN_LOADING"
+align = 1
+
+[node name="sep2" type="HSeparator" parent="margin/main"]
+margin_top = 399.0
+margin_right = 1412.0
+margin_bottom = 449.0
+custom_styles/separator = SubResource( 4 )
+custom_constants/separation = 70
+
+[node name="progress" type="HBoxContainer" parent="margin/main"]
+margin_top = 453.0
+margin_right = 1412.0
+margin_bottom = 476.0
+
+[node name="sep1" type="VSeparator" parent="margin/main/progress"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 100.0
+margin_bottom = 23.0
+custom_constants/separation = 100
+
+[node name="bar" type="ProgressBar" parent="margin/main/progress"]
+margin_left = 104.0
+margin_right = 1308.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+
+[node name="sep2" type="VSeparator" parent="margin/main/progress"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 1312.0
+margin_right = 1412.0
+margin_bottom = 23.0
+custom_constants/separation = 100
+
+[node name="sep3" type="HSeparator" parent="margin/main"]
+margin_top = 480.0
+margin_right = 1412.0
+margin_bottom = 750.0
+custom_constants/separation = 270
+
+[node name="Tween" type="Tween" parent="."]

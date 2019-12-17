@@ -5,6 +5,16 @@ APP_NAME,Planner,Planner
 \\\Main,\\\,\\\
 NEW_FILE,New,Nouveau
 LOAD_FILE,Load,Charger
+RECENT_FILES,Recent,Récent
+PREFS,Preferences,Préférences
 ABOUT,About,À Propos
 QUIT,Quit,Quitter
-\\\NewGame,\\\,\\\
+\\\\\LOADING\\\\\,\\\\\\,\\\\\\
+PLAN_LOADING,Loading your Plan,Chargement de votre Plan
+,,
+\\\\\PLAN\\\\\,\\\\\\,\\\\\\
+PLAN_NAME,Name,Nom
+PLAN_DESC,Description,Description
+PLAN_NOTES,Notes,Notes
+PLAN_OPTIONS,Options,Options
+SAVE,Save,Sauver

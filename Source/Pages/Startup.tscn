@@ -1,16 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/themes/Pink.tres" type="Theme" id=1]
 [ext_resource path="res://Pages/Startup.gd" type="Script" id=2]
 [ext_resource path="res://UI_Components/Toolbar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/fonts/Crushed-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://UI_Components/PlanLine.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI_Components/Recent.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
 font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="Startup" type="Control"]
 anchor_right = 1.0
@@ -51,55 +49,22 @@ size_flags_vertical = 0
 custom_fonts/font = SubResource( 1 )
 text = "LOAD_FILE"
 
-[node name="ScrollContainer" type="VBoxContainer" parent="."]
+[node name="Recent" parent="." instance=ExtResource( 5 )]
+
+[node name="FileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -411.0
-margin_top = -464.0
-margin_right = 411.0
-margin_bottom = -20.0
-rect_min_size = Vector2( 13.02, 0 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 1
-
-[node name="RecentPlans" type="HBoxContainer" parent="ScrollContainer"]
-margin_right = 822.0
-margin_bottom = 23.0
-
-[node name="sep1" type="VSeparator" parent="ScrollContainer/RecentPlans"]
-margin_right = 9.0
-margin_bottom = 23.0
-custom_styles/separator = SubResource( 2 )
-custom_constants/separation = 9
-
-[node name="name" type="Label" parent="ScrollContainer/RecentPlans"]
-margin_left = 13.0
-margin_right = 88.0
-margin_bottom = 23.0
-text = "Plan Name"
-
-[node name="sep2" type="VSeparator" parent="ScrollContainer/RecentPlans"]
-margin_left = 92.0
-margin_right = 147.0
-margin_bottom = 23.0
-custom_constants/separation = 55
-
-[node name="path" type="Label" parent="ScrollContainer/RecentPlans"]
-margin_left = 151.0
-margin_right = 205.0
-margin_bottom = 23.0
-text = "Filepath"
-
-[node name="sep" type="HSeparator" parent="ScrollContainer"]
-margin_top = 24.0
-margin_right = 822.0
-margin_bottom = 28.0
-
-[node name="PlanLine" parent="." instance=ExtResource( 5 )]
-margin_left = 3.87706
-margin_top = 444.57
-margin_right = 3.87708
-margin_bottom = 501.57
+anchor_bottom = 0.5
+margin_left = -485.0
+margin_top = -303.5
+margin_right = 485.0
+margin_bottom = 303.5
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*plan ; Plan Files" )
+current_dir = "D:/Nora/Documents/!LUNEAL LABS"
+current_path = "D:/Nora/Documents/!LUNEAL LABS/"
+[connection signal="pressed" from="VBoxContainer/Load" to="." method="_on_Load_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]

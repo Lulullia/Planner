@@ -39,7 +39,7 @@ func _on_Fullscreen_toggled(button_pressed):
 
 #Close
 func _on_Close_pressed():
-	GLOBAL._quit(self)
+	GLOBAL._quit(true)
 
 func _on_QuitYes_pressed():
 	GLOBAL._quit()
@@ -49,8 +49,10 @@ func _on_QuitNo_pressed():
 func _on_SaveNo_pressed():
 	GLOBAL._quit()
 func _on_SaveYes_pressed():
-	GLOBAL._save(true)
+	GLOBAL._save(1, true)
 func _on_SaveCancel_pressed():
 	$Close/SaveConfirm.hide()
 
-
+#Name
+func set_doc_title(value):
+	$DocTitle.text = value

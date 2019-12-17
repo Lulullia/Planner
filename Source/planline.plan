@@ -1,0 +1,48 @@
+[sections]
+
+0={
+"text": "cdcd",
+"visible": true
+}
+1={
+"text": "vv",
+"visible": true
+}
+2={
+"text": "",
+"visible": true
+}
+3={
+"text": "",
+"visible": false
+}
+4={
+"text": "",
+"visible": false
+}
+5={
+"text": "",
+"visible": false
+}
+6={
+"text": "",
+"visible": false
+}
+7={
+"text": "",
+"visible": false
+}
+8={
+"text": "",
+"visible": false
+}
+
+[split_offsets]
+
+sections=0
+split1=0
+split1-1=0
+split1-2=0
+split2=0
+split2-1=0
+split2-2=0
