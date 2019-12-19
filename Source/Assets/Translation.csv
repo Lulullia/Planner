@@ -17,4 +17,7 @@ PLAN_NAME,Name,Nom
 PLAN_DESC,Description,Description
 PLAN_NOTES,Notes,Notes
 PLAN_OPTIONS,Options,Options
-SAVE,Save,Sauver
+SAVE,Save,Enregistrer
+SAVE_AS,Save As,Enregistrer sous
+COULDNT_OPEN,A problem occurred when loading the file.,Un problème est survenu lors du chargement du fichier.
+ERROR_CODE,Error code :,Code d’erreur :

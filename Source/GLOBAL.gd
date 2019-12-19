@@ -10,7 +10,6 @@ extends Node
 
 ###ONREADY###
 
-onready var thread = Thread.new()
 onready var current_scene = get_node("/root/Splash")
 
 ###PRELOAD###
@@ -20,9 +19,9 @@ onready var current_scene = get_node("/root/Splash")
 const global_filepath = "user://global.plan"
 
 #Scenes
-const loading_scene = "res://Pages/Loading.tscn"
 const startup_scene = "res://Pages/Startup.tscn"
 const plan_scene = "res://UI_Components/Plan.tscn"
+const main_scene = "res://Pages/TrueMain.tscn"
 
 ###ENUMS###
 
@@ -35,10 +34,7 @@ var current_filepath
 var last_dir = ".." setget set_last_dir
 
 #Scene management
-var current_name
 var current_plan
-
-var loaded_scene
 
 #Save data
 var global_save = {
@@ -56,9 +52,9 @@ var global_save = {
 		"main": "res://Assets/themes/Pink.tres"
 	},
 	
-	"recent-plans": [
+	"recent-plans": {
 		#Here add recent plans by code
-	]
+	}
 }
 
 
@@ -81,33 +77,15 @@ func _ready():
 ###SCENE MANAGEMENT###
 
 #Changing scenes
-func goto_scene(new_scene, loading, load_scene = ""):
+func goto_scene(new_scene, loading):
 	current_scene.queue_free()
-	current_scene = new_scene
+	current_scene = load(new_scene).instance()
 	get_tree().get_root().call_deferred("add_child", current_scene)
 	
 	if loading:
-		thread.start(self, "prep_scene", ResourceLoader.load_interactive(load_scene))
+		yield(current_scene, "ready")
+		_load(1, current_filepath)
 
-#Loading
-func prep_scene(interactive_ldr):
-	
-	while true:
-		var err = interactive_ldr.poll()
-		if err == ERR_FILE_EOF:
-			call_deferred("_on_load_level_done")
-			return interactive_ldr.get_resource()
-		elif err == OK:
-			update_progress(interactive_ldr)
-
-func update_progress(loader):
-	var progress = float(loader.get_stage()) / loader.get_stage_count()
-	current_scene.update_progress(progress)
-
-func _on_load_level_done():
-	loaded_scene = thread.wait_to_finish()
-	var scene = loaded_scene.instance()
-	goto_scene(scene, false)
 
 ###SAVING&LOADING###
 
@@ -150,18 +128,12 @@ func _load(what, filepath = ""):
 			for section in conf.get_sections():
 				for key in conf.get_section_keys(section):
 					global_save[section][key] = conf.get_value(section, key)
+			return OK
 		else:
-			match err:
-				ERR_FILE_NOT_FOUND:
-					print("File not found.")
-					_save(0, false)
-				ERR_FILE_ALREADY_IN_USE:
-					print("Couldn't open. File already in use.")
-				_:
-					print("Couldn't open. File is corrupted.")
-			
 			print("-- Creating prefs.plan")
 			_save(0, false)
+			
+			return OK
 	
 	else: #Load a Plan
 		var conf = ConfigFile.new()
@@ -173,26 +145,17 @@ func _load(what, filepath = ""):
 			#Retrieving data
 			var plan_save = {}
 			for section in conf.get_sections():
+				plan_save[section] = {}
 				for key in conf.get_section_keys(section):
+#					var k = key
+#					plan_save[section] = str(key)
 					plan_save[section][key] = conf.get_value(section, key)
 			
-			#Creating plan instance
-			current_plan = load(plan_scene).instance()
-			current_plan._load(plan_save)
-			
-			goto_scene(current_plan, false)
+			#Loading the plan
+			current_filepath = filepath
+			current_plan.call_deferred("_load", plan_save)
 		
-		else:
-			match err:
-				ERR_FILE_NOT_FOUND:
-					print("File not found.")
-					_save(0, false)
-				ERR_FILE_ALREADY_IN_USE:
-					print("Couldn't open. File already in use.")
-				_:
-					print("Couldn't open. File is corrupted.")
-			
-			return "err"
+		return err
 
 #Mouse
 func _set_mouse(mode):
@@ -209,13 +172,13 @@ func _set_mouse(mode):
 func _quit(save = false):
 	if save:
 		#Do the save-check etc
-		if current_name:
-			global_save["recent-plans"].push_front([current_name, current_filepath])
+		if current_plan:
+			global_save["recent-plans"][current_plan.save_data["info"]["name"]] = current_filepath
 			_save(0, true)
 		else:
 			get_tree().quit()
 	else:
-		global_save["recent-plans"].push_front([current_name, current_filepath])
+		
 		_save(0, true)
 
 #######################
@@ -225,4 +188,5 @@ func _quit(save = false):
 func set_last_dir(value):
 	last_dir = value
 	global_save["preferences"]["last_dir"] = last_dir
+	_save(0, false)
 

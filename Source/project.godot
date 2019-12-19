@@ -19,8 +19,8 @@ config/name="Planner"
 run/main_scene="res://Pages/Splash.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Luneal Labs/Planner"
-boot_splash/image="res://splash.png"
-boot_splash/bg_color=Color( 0.815686, 0.815686, 0.815686, 1 )
+boot_splash/image="res://Assets/png/blank.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -74,6 +74,10 @@ left_click={
 test="en"
 translations=PoolStringArray( "res://Assets/Translation.en.translation", "res://Assets/Translation.fr.translation" )
 locale_filter=[ 1, [ "en", "fr" ] ]
+
+[memory]
+
+limits/message_queue/max_size_kb=2000
 
 [rendering]
 

@@ -183,6 +183,7 @@ func _on_menu_pressed(id):
 		4: #Delete Line
 			emit_signal("wanna_delete", self)
 
+
 #Visibility
 func _check_visible():
 	

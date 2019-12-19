@@ -66,7 +66,7 @@ Làlàlà"
 "visible": true
 },
 "1": {
-"text": "dededede",
+"text": "dede",
 "visible": true
 },
 "2": {
@@ -110,56 +110,6 @@ Làlàlà"
 }
 2={
 "id": 2,
-"sections": {
-"0": {
-"text": "cfcf",
-"visible": true
-},
-"1": {
-"text": "dededede",
-"visible": true
-},
-"2": {
-"text": "",
-"visible": true
-},
-"3": {
-"text": "",
-"visible": false
-},
-"4": {
-"text": "",
-"visible": false
-},
-"5": {
-"text": "",
-"visible": false
-},
-"6": {
-"text": "",
-"visible": false
-},
-"7": {
-"text": "",
-"visible": false
-},
-"8": {
-"text": "",
-"visible": false
-}
-},
-"split_offsets": {
-"sections": 0,
-"split1": 222,
-"split1-1": 205,
-"split1-2": 0,
-"split2": 0,
-"split2-1": 0,
-"split2-2": 0
-}
-}
-3={
-"id": 3,
 "sections": {
 "0": {
 "text": "Plan de journéee",

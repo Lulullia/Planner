@@ -2,7 +2,7 @@ extends Control
 
 # warning-ignore:unused_argument
 func splash_end(anim):
-	GLOBAL.goto_scene(load(GLOBAL.startup_scene).instance(), false)
+	GLOBAL.goto_scene(GLOBAL.startup_scene, false)
 
 
 func _on_tex_pressed():
