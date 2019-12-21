@@ -1,21 +1,30 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/themes/Pink.tres" type="Theme" id=1]
 [ext_resource path="res://Pages/Startup.gd" type="Script" id=2]
-[ext_resource path="res://UI_Components/Prefs.tscn" type="PackedScene" id=3]
-[ext_resource path="res://UI_Components/Toolbar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/fonts/Crushed-Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://UI_Components/Recent.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI_Components/Toolbar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI_Components/Prefs.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI_Components/New.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/fonts/Crushed-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://UI_Components/Recent.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
-font_data = ExtResource( 5 )
+font_data = ExtResource( 6 )
 
 [node name="Startup" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="ToolBar" parent="." instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_right = 1440.0
+
+[node name="Prefs" parent="." instance=ExtResource( 4 )]
+
+[node name="New" parent="." instance=ExtResource( 5 )]
 
 [node name="FileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -34,25 +43,21 @@ filters = PoolStringArray( "*plan ; Plan Files" )
 current_dir = "D:/Nora/Documents/!LUNEAL LABS"
 current_path = "D:/Nora/Documents/!LUNEAL LABS/"
 
-[node name="Prefs" parent="." instance=ExtResource( 3 )]
+[node name="Main" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -305.5
+margin_top = -113.0
+margin_right = 305.5
+margin_bottom = 113.0
 
-[node name="Cont" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ToolBar" parent="Cont" instance=ExtResource( 4 )]
-anchor_right = 0.0
-margin_right = 1440.0
-
-[node name="Main" type="VBoxContainer" parent="Cont"]
-margin_top = 54.0
-margin_right = 1440.0
-margin_bottom = 280.0
-custom_constants/separation = 16
-alignment = 1
-
-[node name="New" type="Button" parent="Cont/Main"]
-margin_right = 200.0
+[node name="New" type="Button" parent="Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 200, 76 )
 size_flags_horizontal = 0
@@ -61,21 +66,27 @@ custom_fonts/font = SubResource( 1 )
 shortcut_in_tooltip = false
 text = "NEW_FILE"
 
-[node name="Load" type="Button" parent="Cont/Main"]
-margin_top = 92.0
-margin_right = 200.0
-margin_bottom = 168.0
+[node name="Load" type="Button" parent="Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -19.0
+margin_right = 100.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 200, 76 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 1 )
 text = "LOAD_FILE"
 
-[node name="Recent" parent="Cont/Main" instance=ExtResource( 6 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 184.0
-margin_right = 1440.0
-margin_bottom = 226.0
+[node name="Recent" parent="Main" instance=ExtResource( 7 )]
+anchor_top = 1.0
+margin_top = -32.0
+margin_bottom = 10.0
+[connection signal="hid" from="Prefs" to="." method="_on_New_hid"]
+[connection signal="hid" from="New" to="." method="_on_New_hid"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
-[connection signal="pressed" from="Cont/Main/Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="Main/New" to="." method="_on_New_pressed"]
+[connection signal="pressed" from="Main/Load" to="." method="_on_Load_pressed"]

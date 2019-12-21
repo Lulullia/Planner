@@ -4,22 +4,20 @@ signal hid
 
 
 func _ready():
-#	$ColorRect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-#	$ColorRect.visible = false
 	$anim.current_animation = "pop"
 	$anim.stop()
 	$anim.seek(0, true)
 
 func _show():
+	_initi()
 	$anim.play("pop")
-#	$ColorRect.mouse_filter = Control.MOUSE_FILTER_STOP
-#	$ColorRect.visible = true
 	raise()
+
+func _initi():
+	pass
 
 func _hide():
 	$anim.play_backwards("pop")
-#	$ColorRect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-#	$ColorRect.visible = false
 
 func _on_save_pressed():
 	#save code

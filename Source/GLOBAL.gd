@@ -67,7 +67,7 @@ func _ready():
 	#Retrieving global save
 	_load(0)
 	
-	###Updating res
+	#Updating res
 	if global_save["preferences"]["res"] != 1:
 		var res = global_save["preferences"]["res"]
 		var reso = Vector2(resolutions[res].front(), resolutions[res].back())
@@ -110,7 +110,6 @@ func _save(what, quitting, data = null):
 				conf.set_value(section, key, data[section][key])
 		
 		conf.save(current_filepath)
-		print("Plan Saved")
 	
 	#When save is complete
 	if quitting:
@@ -147,8 +146,6 @@ func _load(what, filepath = ""):
 			for section in conf.get_sections():
 				plan_save[section] = {}
 				for key in conf.get_section_keys(section):
-#					var k = key
-#					plan_save[section] = str(key)
 					plan_save[section][key] = conf.get_value(section, key)
 			
 			#Loading the plan
@@ -180,6 +177,23 @@ func _quit(save = false):
 	else:
 		
 		_save(0, true)
+
+#Create plan
+func _create_plan(data):
+	
+	current_filepath = data["filepath"]
+	
+	goto_scene(main_scene, false)
+	yield(current_scene, "ready")
+	
+	var save_data = {"info": {
+		"name": data["name"],
+		"desc": data["desc"],
+		"notes": ""},"planlines": {}}
+	
+	current_plan._load(save_data)
+	_save(1, current_plan._save())
+
 
 #######################
 ###SETTERS & GETTERS###

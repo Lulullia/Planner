@@ -21,3 +21,7 @@ SAVE,Save,Enregistrer
 SAVE_AS,Save As,Enregistrer sous
 COULDNT_OPEN,A problem occurred when loading the file.,Un problème est survenu lors du chargement du fichier.
 ERROR_CODE,Error code :,Code d’erreur :
+SAVE_PATH,Save path,Chemin de sauvegarde
+CREATE_PLAN,Create a Plan,Créer un Plan
+BROWSE,Browse,Parcourir
+CREATE,Create,Créer

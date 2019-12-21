@@ -59,6 +59,8 @@ tracks/0/keys = {
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 50.0
+rect_min_size = Vector2( 0, 766 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
@@ -237,10 +239,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -206.5
-margin_top = -99.5
-margin_right = 206.5
-margin_bottom = 57.5
+margin_left = -211.5
+margin_top = -104.5
+margin_right = 211.5
+margin_bottom = 76.5
 
 [node name="Label2" type="Label" parent="ErrorLoad/cont"]
 margin_right = 413.0
