@@ -6,9 +6,9 @@
 [ext_resource path="res://Assets/png/fullscreen.png" type="Texture" id=4]
 [ext_resource path="res://Assets/png/cross.png" type="Texture" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 25
 font_data = ExtResource( 2 )
 
@@ -28,7 +28,7 @@ __meta__ = {
 margin_right = 30.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 30
 
 [node name="WindowTitle" type="Label" parent="."]
@@ -38,7 +38,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 rect_pivot_offset = Vector2( 46, 20 )
 mouse_filter = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Planner"
 align = 1
@@ -49,7 +49,7 @@ margin_left = 107.0
 margin_right = 147.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 40
 
 [node name="Slash" type="Label" parent="."]
@@ -58,7 +58,7 @@ margin_top = 10.0
 margin_right = 154.0
 margin_bottom = 39.0
 mouse_filter = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "I"
 align = 1
@@ -69,7 +69,7 @@ margin_left = 156.0
 margin_right = 196.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 40
 
 [node name="DocTitle" type="Label" parent="."]
@@ -80,7 +80,7 @@ rect_min_size = Vector2( 0, 50 )
 rect_pivot_offset = Vector2( 46, 20 )
 mouse_filter = 1
 size_flags_horizontal = 3
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 align = 1
 valign = 1
@@ -91,7 +91,7 @@ margin_left = 991.0
 margin_right = 1291.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 300
 
 [node name="Minimize" type="ToolButton" parent="."]
@@ -112,7 +112,7 @@ margin_left = 1337.0
 margin_right = 1338.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 1
 
 [node name="Fullscreen" type="ToolButton" parent="."]
@@ -134,7 +134,7 @@ margin_left = 1384.0
 margin_right = 1385.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 1
 
 [node name="Close" type="ToolButton" parent="."]
@@ -149,46 +149,6 @@ shortcut_in_tooltip = false
 enabled_focus_mode = 0
 icon = ExtResource( 5 )
 clip_text = true
-
-[node name="QuitConfirm" type="WindowDialog" parent="Close"]
-editor/display_folded = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -101.0
-margin_top = -60.0
-margin_right = 101.0
-margin_bottom = 60.0
-popup_exclusive = true
-
-[node name="QuitYes" type="Button" parent="Close/QuitConfirm"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 21.0
-margin_top = -65.0
-margin_right = 84.0
-margin_bottom = -24.0
-text = "Yes"
-
-[node name="QuitNo" type="Button" parent="Close/QuitConfirm"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -83.0
-margin_top = -65.0
-margin_right = -19.0
-margin_bottom = -24.0
-text = "No"
-
-[node name="Label" type="Label" parent="Close/QuitConfirm"]
-anchor_right = 1.0
-margin_top = 10.0
-margin_bottom = 45.0
-text = "Quit ?"
-align = 1
-valign = 1
 
 [node name="SaveConfirm" type="WindowDialog" parent="Close"]
 editor/display_folded = true
@@ -246,14 +206,12 @@ margin_left = 1431.0
 margin_right = 1440.0
 margin_bottom = 50.0
 mouse_filter = 1
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 9
 [connection signal="gui_input" from="." to="." method="_on_ToolBar_gui_input"]
 [connection signal="pressed" from="Minimize" to="." method="_on_Minimize_pressed"]
 [connection signal="toggled" from="Fullscreen" to="." method="_on_Fullscreen_toggled"]
 [connection signal="pressed" from="Close" to="." method="_on_Close_pressed"]
-[connection signal="pressed" from="Close/QuitConfirm/QuitYes" to="." method="_on_QuitYes_pressed"]
-[connection signal="pressed" from="Close/QuitConfirm/QuitNo" to="." method="_on_QuitNo_pressed"]
 [connection signal="pressed" from="Close/SaveConfirm/SaveYes" to="." method="_on_SaveYes_pressed"]
 [connection signal="pressed" from="Close/SaveConfirm/SaveNo" to="." method="_on_SaveNo_pressed"]
 [connection signal="pressed" from="Close/SaveConfirm/SaveCancel" to="." method="_on_SaveCancel_pressed"]

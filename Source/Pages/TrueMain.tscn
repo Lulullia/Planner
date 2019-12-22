@@ -26,9 +26,5 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1440.0
 margin_bottom = 816.0
-
-[node name="Cont" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
 [connection signal="hid" from="Prefs" to="." method="_on_Prefs_hid"]
 [connection signal="prefs_click" from="Main" to="." method="_on_Main_prefs_click"]

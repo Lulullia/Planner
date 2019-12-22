@@ -5,13 +5,13 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 30
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:color")
@@ -84,7 +84,7 @@ custom_constants/separation = 30
 margin_top = 34.0
 margin_right = 825.0
 margin_bottom = 69.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "CREATE_PLAN"
 align = 1
 
@@ -141,7 +141,7 @@ caret_blink = true
 margin_left = 701.0
 margin_right = 721.0
 margin_bottom = 40.0
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 20
 
 [node name="browse" type="Button" parent="Panel/cont/path"]
@@ -175,7 +175,7 @@ text = "CANCEL"
 margin_left = 312.0
 margin_right = 332.0
 margin_bottom = 40.0
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 20
 
 [node name="ok" type="Button" parent="Panel/cont/buttons"]
@@ -187,7 +187,7 @@ shortcut_in_tooltip = false
 text = "CREATE"
 
 [node name="anim" type="AnimationPlayer" parent="."]
-anims/pop = SubResource( 3 )
+anims/pop = SubResource( 4 )
 
 [node name="file" type="FileDialog" parent="."]
 anchor_left = 0.5

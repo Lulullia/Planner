@@ -66,12 +66,6 @@ func _ready():
 	
 	#Retrieving global save
 	_load(0)
-	
-	#Updating res
-	if global_save["preferences"]["res"] != 1:
-		var res = global_save["preferences"]["res"]
-		var reso = Vector2(resolutions[res].front(), resolutions[res].back())
-		OS.set_window_size(reso)
 
 
 ###SCENE MANAGEMENT###
@@ -100,7 +94,6 @@ func _save(what, quitting, data = null):
 				conf.set_value(section, key, global_save[section][key])
 		
 		conf.save(global_filepath)
-		print("Preferences Saved")
 	
 	else: #Save current file
 		var conf = ConfigFile.new()
@@ -113,7 +106,7 @@ func _save(what, quitting, data = null):
 	
 	#When save is complete
 	if quitting:
-		_quit()
+		get_tree().quit()
 
 #Loading
 func _load(what, filepath = ""):
@@ -123,13 +116,15 @@ func _load(what, filepath = ""):
 		
 		var err = conf.load(global_filepath)
 		if err == OK:
-			print("-- Loading prefs.plan")
 			for section in conf.get_sections():
 				for key in conf.get_section_keys(section):
 					global_save[section][key] = conf.get_value(section, key)
+			
+			_load_prefs()
+			
 			return OK
-		else:
-			print("-- Creating prefs.plan")
+		
+		else: #File not found, create new
 			_save(0, false)
 			
 			return OK
@@ -139,7 +134,6 @@ func _load(what, filepath = ""):
 		var err = conf.load(filepath)
 		
 		if err == OK:
-			print("-- Loading " + filepath)
 			
 			#Retrieving data
 			var plan_save = {}
@@ -150,9 +144,23 @@ func _load(what, filepath = ""):
 			
 			#Loading the plan
 			current_filepath = filepath
-			current_plan.call_deferred("_load", plan_save)
+			current_plan._load(plan_save)
 		
 		return err
+
+
+#Loading prefs
+func _load_prefs():
+	
+	#Updating res
+	if global_save["preferences"]["res"] != 1:
+		var res = global_save["preferences"]["res"]
+		var reso = Vector2(resolutions[res].front(), resolutions[res].back())
+		OS.set_window_size(reso)
+	
+	#Meta
+	set_last_dir(global_save["preferences"]["last_dir"])
+
 
 #Mouse
 func _set_mouse(mode):
@@ -168,15 +176,21 @@ func _set_mouse(mode):
 #Quit
 func _quit(save = false):
 	if save:
-		#Do the save-check etc
+		#Do the save-check
 		if current_plan:
 			global_save["recent-plans"][current_plan.save_data["info"]["name"]] = current_filepath
-			_save(0, true)
+			_save(0, false)
+			_save(1, true, current_plan._save())
+		
 		else:
 			get_tree().quit()
+	
 	else:
+		if current_plan:
+			global_save["recent-plans"][current_plan.save_data["info"]["name"]] = current_filepath
 		
 		_save(0, true)
+		get_tree().quit()
 
 #Create plan
 func _create_plan(data):
@@ -187,12 +201,15 @@ func _create_plan(data):
 	yield(current_scene, "ready")
 	
 	var save_data = {"info": {
-		"name": data["name"],
-		"desc": data["desc"],
-		"notes": ""},"planlines": {}}
+		"name": "",
+		"desc": "",
+		"notes": ""},"planlines": {"0":{}}}
+	
+	save_data["info"]["name"] = data["name"]
+	save_data["info"]["desc"] = data["desc"]
 	
 	current_plan._load(save_data)
-	_save(1, current_plan._save())
+	_save(1, false, current_plan._save())
 
 
 #######################

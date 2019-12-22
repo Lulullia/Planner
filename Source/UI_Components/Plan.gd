@@ -49,7 +49,7 @@ func _on_menu_pressed():
 ###PLANLINE MANAGEMENT###
 
 #Add planline
-func _add_planline(dupli, origin = line_container.get_child(line_container.get_child_count()), load_data = null):
+func _add_planline(dupli, check, origin = line_container.get_child(line_container.get_child_count()), load_data = null):
 	var new_line = load(planline).instance()
 	
 	if origin:
@@ -68,10 +68,12 @@ func _add_planline(dupli, origin = line_container.get_child(line_container.get_c
 	if load_data:
 		new_line._load(load_data)
 	
-	_check_line_id()
+	_check_line_id(check)
+	
+	return new_line
 
 #Id assignment
-func _check_line_id():
+func _check_line_id(save = true):
 	
 	var line_idx = 1
 	var down = true
@@ -84,7 +86,8 @@ func _check_line_id():
 		li._save()
 		line_idx += 1
 	
-	_save()
+	if save:
+		_save()
 
 #Move planline
 func _move_planline(dir, li):
@@ -103,12 +106,11 @@ func _move_planline(dir, li):
 func _del_planline(li, check = true):
 	line_container.remove_child(li)
 	li.queue_free()
-	if check :
-		_check_line_id()
+	_check_line_id(check)
 
 #Button Plus
 func _on_plus_pressed():
-	_add_planline(false, null)
+	_add_planline(false, true, null)
 
 
 ###SAVING&LOADING###
@@ -117,7 +119,7 @@ func _on_plus_pressed():
 func _load(data):
 	
 	save_data = data
-	print("loading the plan")
+	
 	##Loading info
 	set_name(save_data["info"]["name"])
 	$Panel/cont/desc.text = save_data["info"]["desc"]
@@ -126,12 +128,11 @@ func _load(data):
 	##Clearing planlines
 	if line_container.get_child_count() != 0:
 		for li in line_container.get_children():
-			_del_planline(li, true)
+			_del_planline(li, false)
 	
 	##Loading planlines
 	#Load the first line
-	_add_planline(false, null)
-	var origin = line_container.get_child(0)
+	var origin = _add_planline(false, false, null)
 	origin._load(save_data["planlines"]["0"])
 	
 	#Load the rest
@@ -142,7 +143,7 @@ func _load(data):
 			
 			if line == str(idx): #Load in order
 				
-				_add_planline(false, origin, save_data["planlines"][str(line)])
+				_add_planline(false, false, origin, save_data["planlines"][str(line)])
 				origin = line_container.get_child(idx - 1)
 				idx += 1
 				

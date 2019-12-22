@@ -37,7 +37,7 @@ func _on_saveas_pressed():
 	file.popup()
 
 func _on_file_selected(path):
-	print("select")
+	
 	if mode == 0: #Save
 		GLOBAL.current_filepath = path
 		GLOBAL.set_last_dir(file.current_dir)

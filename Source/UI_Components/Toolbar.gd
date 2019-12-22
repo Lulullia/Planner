@@ -39,17 +39,15 @@ func _on_Fullscreen_toggled(button_pressed):
 
 #Close
 func _on_Close_pressed():
-	GLOBAL._quit(true)
-
-func _on_QuitYes_pressed():
-	GLOBAL._quit()
-func _on_QuitNo_pressed():
-	$Close/QuitConfirm.hide()
+	if GLOBAL.current_plan:
+		$Close/SaveConfirm.popup()
+	else:
+		GLOBAL._quit()
 
 func _on_SaveNo_pressed():
 	GLOBAL._quit()
 func _on_SaveYes_pressed():
-	GLOBAL._save(1, true)
+	GLOBAL._quit(true)
 func _on_SaveCancel_pressed():
 	$Close/SaveConfirm.hide()
 
