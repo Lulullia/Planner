@@ -17,6 +17,7 @@ onready var current_scene = get_node("/root/Splash")
 ###CONSTANTS###
 
 const global_filepath = "user://global.plan"
+const MAX_RECENT = 10
 
 #Scenes
 const startup_scene = "res://Pages/Startup.tscn"
@@ -45,15 +46,12 @@ var global_save = {
 		"autosave": false,
 		"save_every": [1, "min"],
 		"res": 1,
-		"last_dir": ".."
+		"last_dir": "..",
+		"recent-plans": []
 	},
 	
 	"theme-pink": {
 		"main": "res://Assets/themes/Pink.tres"
-	},
-	
-	"recent-plans": {
-		#Here add recent plans by code
 	}
 }
 
@@ -75,9 +73,9 @@ func goto_scene(new_scene, loading):
 	current_scene.queue_free()
 	current_scene = load(new_scene).instance()
 	get_tree().get_root().call_deferred("add_child", current_scene)
+	yield(current_scene, "ready")
 	
 	if loading:
-		yield(current_scene, "ready")
 		_load(1, current_filepath)
 
 
@@ -103,6 +101,8 @@ func _save(what, quitting, data = null):
 				conf.set_value(section, key, data[section][key])
 		
 		conf.save(current_filepath)
+		
+		_update_recent()
 	
 	#When save is complete
 	if quitting:
@@ -142,10 +142,18 @@ func _load(what, filepath = ""):
 				for key in conf.get_section_keys(section):
 					plan_save[section][key] = conf.get_value(section, key)
 			
-			#Loading the plan
 			current_filepath = filepath
-			current_plan._load(plan_save)
-		
+			
+			#Loading the plan
+			if current_plan:
+				current_plan._load(plan_save)
+			else:
+				goto_scene(main_scene, false)
+				yield(current_scene, "ready")
+				current_plan._load(plan_save)
+			
+			_update_recent()
+			
 		return err
 
 
@@ -160,6 +168,7 @@ func _load_prefs():
 	
 	#Meta
 	set_last_dir(global_save["preferences"]["last_dir"])
+	
 
 
 #Mouse
@@ -175,22 +184,13 @@ func _set_mouse(mode):
 
 #Quit
 func _quit(save = false):
+	
 	if save:
-		#Do the save-check
-		if current_plan:
-			global_save["recent-plans"][current_plan.save_data["info"]["name"]] = current_filepath
-			_save(0, false)
-			_save(1, true, current_plan._save())
-		
-		else:
-			get_tree().quit()
+		_save(0, false)
+		_save(1, true, current_plan._save())
 	
 	else:
-		if current_plan:
-			global_save["recent-plans"][current_plan.save_data["info"]["name"]] = current_filepath
-		
 		_save(0, true)
-		get_tree().quit()
 
 #Create plan
 func _create_plan(data):
@@ -210,6 +210,20 @@ func _create_plan(data):
 	
 	current_plan._load(save_data)
 	_save(1, false, current_plan._save())
+	_update_recent()
+
+func _update_recent():
+	
+	if current_plan:
+		
+		if !global_save["preferences"]["recent-plans"].has([str(current_plan.save_data["info"]["name"]), current_filepath]):
+			
+			global_save["preferences"]["recent-plans"].push_front([str(current_plan.save_data["info"]["name"]), current_filepath])
+		
+		if global_save["preferences"]["recent-plans"].size() > MAX_RECENT:
+			global_save["preferences"]["recent-plans"].pop_back()
+	
+	_save(0, false)
 
 
 #######################

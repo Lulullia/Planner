@@ -55,6 +55,7 @@ func _on_file_selected(path):
 			$ErrorLoad/cont/code.text = str(err)
 			$ErrorLoad.popup()
 		_on_menu2_pressed()
+		$Menu/cont/recent/Recent._initi()
 
 func _file_init():
 	

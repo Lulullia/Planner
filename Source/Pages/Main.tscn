@@ -44,7 +44,7 @@ tracks/1/keys = {
 resource_name = "prefs"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Menu/prefs:rect_rotation")
+tracks/0/path = NodePath("Main/prefs:rect_rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -160,13 +160,10 @@ margin_bottom = 157.0
 custom_styles/separator = SubResource( 2 )
 
 [node name="recent" type="VBoxContainer" parent="Menu/cont"]
-editor/display_folded = true
 margin_top = 161.0
 margin_right = 295.0
-margin_bottom = 714.0
+margin_bottom = 179.0
 rect_min_size = Vector2( 285, 0 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Menu/cont/recent"]
 margin_right = 295.0
@@ -178,12 +175,13 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 18.0
 margin_right = 295.0
-margin_bottom = 553.0
+margin_bottom = 18.0
+small = true
 
 [node name="sep4" type="HSeparator" parent="Menu/cont"]
-margin_top = 718.0
+margin_top = 183.0
 margin_right = 295.0
-margin_bottom = 728.0
+margin_bottom = 193.0
 custom_styles/separator = SubResource( 2 )
 custom_constants/separation = 10
 
