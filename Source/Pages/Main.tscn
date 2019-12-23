@@ -269,6 +269,7 @@ autowrap = true
 [connection signal="pressed" from="Menu/cont/save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="Menu/cont/saveas" to="." method="_on_saveas_pressed"]
 [connection signal="pressed" from="Menu/cont/load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="Menu/cont/new" to="." method="_on_new_pressed"]
 [connection signal="mouse_entered" from="Menu/prefs" to="." method="_on_prefs_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/prefs" to="." method="_on_prefs_mouse_exited"]
 [connection signal="pressed" from="Menu/prefs" to="." method="_on_prefs_pressed"]

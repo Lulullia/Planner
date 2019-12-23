@@ -5,6 +5,7 @@ extends Control
 #############
 
 signal prefs_click
+signal new_click
 
 ###############
 ###VARIABLES###
@@ -31,6 +32,7 @@ func _on_menu2_pressed():
 #Save
 func _on_save_pressed():
 	GLOBAL._save(1, false, $Plan._save())
+	_on_menu2_pressed()
 func _on_saveas_pressed():
 	mode = 0
 	_file_init()
@@ -78,30 +80,10 @@ func _on_prefs_mouse_exited():
 func _on_prefs_pressed():
 	emit_signal("prefs_click")
 
+#New
+func _on_new_pressed():
+	emit_signal("new_click")
+
 #######################
 ###SETTERS & GETTERS###
 #######################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

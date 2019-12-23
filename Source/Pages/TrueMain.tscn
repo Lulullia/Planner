@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/themes/Pink.tres" type="Theme" id=1]
 [ext_resource path="res://Pages/TrueMain.gd" type="Script" id=2]
 [ext_resource path="res://UI_Components/Toolbar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI_Components/Prefs.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Pages/Main.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI_Components/New.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Pages/Main.tscn" type="PackedScene" id=6]
 
 [node name="TrueMain" type="Control"]
 anchor_right = 1.0
@@ -21,10 +22,14 @@ margin_right = 1440.0
 
 [node name="Prefs" parent="." instance=ExtResource( 4 )]
 
-[node name="Main" parent="." instance=ExtResource( 5 )]
+[node name="New" parent="." instance=ExtResource( 5 )]
+
+[node name="Main" parent="." instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1440.0
 margin_bottom = 816.0
 [connection signal="hid" from="Prefs" to="." method="_on_Prefs_hid"]
+[connection signal="hid" from="New" to="." method="_on_New_hid"]
+[connection signal="new_click" from="Main" to="." method="_on_Main_new_click"]
 [connection signal="prefs_click" from="Main" to="." method="_on_Main_prefs_click"]

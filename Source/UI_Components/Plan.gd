@@ -49,7 +49,7 @@ func _on_menu_pressed():
 ###PLANLINE MANAGEMENT###
 
 #Add planline
-func _add_planline(dupli, check, origin = line_container.get_child(line_container.get_child_count()), load_data = null):
+func _add_planline(dupli, origin = line_container.get_child(line_container.get_child_count()), load_data = null, checksave = true):
 	var new_line = load(planline).instance()
 	
 	if origin:
@@ -68,7 +68,7 @@ func _add_planline(dupli, check, origin = line_container.get_child(line_containe
 	if load_data:
 		new_line._load(load_data)
 	
-	_check_line_id(check)
+	_check_line_id(checksave)
 	
 	return new_line
 
@@ -106,11 +106,12 @@ func _move_planline(dir, li):
 func _del_planline(li, check = true):
 	line_container.remove_child(li)
 	li.queue_free()
-	_check_line_id(check)
+	if check:
+		_check_line_id()
 
 #Button Plus
 func _on_plus_pressed():
-	_add_planline(false, true, null)
+	_add_planline(false, null)
 
 
 ###SAVING&LOADING###
@@ -132,8 +133,7 @@ func _load(data):
 	
 	##Loading planlines
 	#Load the first line
-	var origin = _add_planline(false, false, null)
-	origin._load(save_data["planlines"]["0"])
+	var origin = _add_planline(false, null, save_data["planlines"]["0"], false)
 	
 	#Load the rest
 	var idx = 1
@@ -143,8 +143,7 @@ func _load(data):
 			
 			if line == str(idx): #Load in order
 				
-				_add_planline(false, false, origin, save_data["planlines"][str(line)])
-				origin = line_container.get_child(idx - 1)
+				origin = _add_planline(false, origin, save_data["planlines"][str(line)])
 				idx += 1
 				
 				break #We loaded the line with this id, return to while
